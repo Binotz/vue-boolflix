@@ -1,17 +1,24 @@
 <template>
   <div class="card-layout">
     <div class="card-content">
-        <span>Titolo: {{ item.title? item.title : item.name }} </span>
-        <span>Titolo originale: {{ item.original_title ? item.original_title : item.original_name }} </span>
-        <span>Lingua: {{ item.original_language}} </span>
-        <span>Voto: {{ item.vote_average}} </span>
-        <img :src="setFlag(item.original_language)" alt="flag">
-        <img :src="coverBaseURL + item.poster_path" alt="cover">
-        <div class="star-ranking">
-            <span v-for="star,index in getRanking1to5(item.vote_average)" :key="index">
-                <i class="fa-solid fa-star"></i>
-            </span>
+        <!-- Item details -->
+        <div class="item-details">
+            <div class="title"><span>Titolo:</span> {{ item.title? item.title : item.name }} </div>
+            <div class="title-original"><span>Titolo originale: </span> {{ item.original_title ? item.original_title : item.original_name }} </div>
+            <div class="star-ranking">
+                <span>Voto: </span><span v-for="star,index in getRanking1to5(item.vote_average)" :key="index">
+                    <i class="fa-solid fa-star"></i>
+                </span>
+            </div>
+            <div class="overview">
+                <span>Overview: </span><p>{{item.overview}}</p>
+            </div>
+            <!-- <div class="rating"><span>Voto: </span>{{ item.vote_average}}</div> -->
+            <!-- <div class="language"><span>Lingua: </span> {{ item.original_language}} </div> -->
+            <!-- <img :src="setFlag(item.original_language)" alt="flag"> -->
         </div>
+        <!-- Cover Image -->
+        <img :src="coverBaseURL + item.poster_path" alt="cover" class="cover-image">
     </div>
   </div>
 </template>
@@ -50,17 +57,63 @@ export default {
 <style lang="scss" scoped>
 .card-layout{
     width: calc((100% / 5) - 1rem);
-    background-color: pink;
+    background-color: black;
+    &:hover{
+        .cover-image{
+            display: none;
+        }
+    }
 }
-
 .card-content{
-    display: flex;
-    flex-direction: column;
+    position: relative;
+    height: 509px;
+    padding: 2rem 1rem;
+    color: white;
+    overflow-y: hidden;
+    .cover-image{
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: block;
+        width: 100%;
+        object-fit: cover;
+    }
+    .item-details{
+        display: flex;
+        flex-direction: column;
+    }
+    div{
+        font-size: 1.1rem;
+        margin-bottom: .5rem;
+    }
+    span{
+        font-weight: bold;
+        i{
+            color: yellow;
+        }
+    }
 }
-span{
-    margin-bottom: 10px;
-}
-img{
-    width: 20%;
-}
+    // .item-details{
+    //     display: none;
+    //     &:hover{
+    //         display: flex;
+    //         flex-direction: column;
+    //     }
+    // }
+    // &:hover{
+    //     .cover-image{
+    //         display: none;
+
+    //     }
+    // }
+    // span{
+    //     margin-bottom: 10px;
+    // }
+    // img{
+    //     display: block;
+    //     .cover-image{
+    //         object-fit: cover;
+    //     }
+    // }
+
 </style>
