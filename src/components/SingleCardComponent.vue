@@ -7,11 +7,17 @@
         <span>Voto: {{ item.vote_average}} </span>
         <img :src="setFlag(item.original_language)" alt="flag">
         <img :src="coverBaseURL + item.poster_path" alt="cover">
+        <div class="star-ranking">
+            <span v-for="star,index in getRanking1to5(item.vote_average)" :key="index">
+                <i class="fa-solid fa-star"></i>
+            </span>
+        </div>
     </div>
   </div>
 </template>
 
-<script>
+<script> 
+
 export default {
     name:"SingleCardComponent",
     props:{
@@ -33,6 +39,10 @@ export default {
             //... altrimenti ne usa uno di default
             return require('@/assets/img/flags/default.png');
         },
+        getRanking1to5: function(rank){
+            //divido il punteggio per due, arrotondando all'intero più vicino, e faccio l'approssimazione per eccesso
+            return Math.ceil(Math.round(rank/2));
+        }
     }
 }
 </script>
