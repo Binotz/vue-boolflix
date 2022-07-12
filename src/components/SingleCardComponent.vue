@@ -6,6 +6,7 @@
         <span>Lingua: {{ item.original_language}} </span>
         <span>Voto: {{ item.vote_average}} </span>
         <img :src="setFlag(item.original_language)" alt="flag">
+        <img :src="coverBaseURL + item.poster_path" alt="cover">
     </div>
   </div>
 </template>
@@ -18,6 +19,7 @@ export default {
     },
     data(){
         return{
+            coverBaseURL: 'https://image.tmdb.org/t/p/w342/',
             flagsArray:['it','fr','de','uk','en'],
         }
     },
@@ -30,7 +32,7 @@ export default {
             }
             //... altrimenti ne usa uno di default
             return require('@/assets/img/flags/default.png');
-        }
+        },
     }
 }
 </script>
