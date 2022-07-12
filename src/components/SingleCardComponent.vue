@@ -1,12 +1,11 @@
 <template>
   <div class="card-layout">
     <div class="card-content">
-        <span>Titolo: {{ item.title }} </span>
-        <span>Titolo originale: {{ item.original_title }} </span>
+        <span>Titolo: {{ item.title? item.title : item.name }} </span>
+        <span>Titolo originale: {{ item.original_title ? item.original_title : item.original_name }} </span>
         <span>Lingua: {{ item.original_language}} </span>
         <span>Voto: {{ item.vote_average}} </span>
         <img :src="setFlag(item.original_language)" alt="flag">
-        <!-- <img :src="require('@/assets/img/flags/en.png')" alt=""> -->
     </div>
   </div>
 </template>
