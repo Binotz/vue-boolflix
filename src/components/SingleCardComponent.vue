@@ -5,16 +5,33 @@
         <span>Titolo originale: {{ item.original_title }} </span>
         <span>Lingua: {{ item.original_language}} </span>
         <span>Voto: {{ item.vote_average}} </span>
+        <img :src="setFlag(item.original_language)" alt="flag">
+        <!-- <img :src="require('@/assets/img/flags/en.png')" alt=""> -->
     </div>
   </div>
 </template>
 
 <script>
-
 export default {
     name:"SingleCardComponent",
     props:{
         item: Object
+    },
+    data(){
+        return{
+            flagsArray:['it','fr','de','uk','en'],
+        }
+    },
+    methods:{
+        setFlag:function(flag){
+            //se la lang è inclusa nell'array delle bandiere, setta il path della bandiera...
+            if (this.flagsArray.includes(flag)){
+                flag = flag + '.png';
+                return require('@/assets/img/flags/' + flag);
+            }
+            //... altrimenti ne usa uno di default
+            return require('@/assets/img/flags/default.png');
+        }
     }
 }
 </script>
@@ -31,5 +48,8 @@ export default {
 }
 span{
     margin-bottom: 10px;
+}
+img{
+    width: 20%;
 }
 </style>
