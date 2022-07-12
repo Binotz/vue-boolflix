@@ -6,15 +6,14 @@
     </header>
     <!-- Main -->
     <main>
-      <CardsComponentVue />
-
+      <MainComponent :listOfResults="queryResults"/>
     </main>
   </div>
 </template>
 
 <script>
 import HeaderComponentVue from './components/HeaderComponent.vue';
-import CardsComponentVue from './components/CardsComponent.vue';
+import MainComponent from './components/MainComponent.vue';
 
 import axios from "axios";
 
@@ -22,19 +21,21 @@ export default {
   name: 'App',
   components: {
     HeaderComponentVue,
-    CardsComponentVue
-  },
+    MainComponent
+},
   props:{},
   data(){
     return{
       API_KEY: '04ddd3cb54ab12bb2ff93493d1b1b8a5',
+      movieBaseQuery: 'https://api.themoviedb.org/3/search/movie',
       userSearch: '',
       queryResults:[]
     }
   },
   methods:{
     searchElement: function(elem){
-      axios.get(`https://api.themoviedb.org/3/search/movie`, {
+      this.queryResults = [];
+      axios.get(this.movieBaseQuery, {
         params:{
           api_key: this.API_KEY,
           query: elem
