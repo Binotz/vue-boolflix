@@ -13,6 +13,9 @@
             <div class="cast"><span>Cast: <br/></span>
                 <span class="cast-list" v-for="cast,index in item.castName" :key="index">{{ cast }}<br/></span>  
             </div>
+            <div class="genres"><span>Genres: <br/></span>
+                <span class="genres-list" v-for="genre, index in item.genres" :key="index">{{genre}}<br/></span>
+            </div>
             <div class="overview">
                 <span>Overview: </span><p>{{item.overview}}</p>
             </div>
@@ -92,7 +95,8 @@ export default {
     }
     span{
         font-weight: bold;
-        &.cast-list{
+        &.cast-list,
+        &.genres-list{
             font-weight: 400;
         }
         i{
