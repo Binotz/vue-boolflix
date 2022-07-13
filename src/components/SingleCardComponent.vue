@@ -10,9 +10,13 @@
                     <i class="fa-solid fa-star"></i>
                 </span>
             </div>
+            <div class="cast"><span>Cast: <br/></span>
+                <span class="cast-list" v-for="cast,index in item.castName" :key="index">{{ cast }}<br/></span>  
+            </div>
             <div class="overview">
                 <span>Overview: </span><p>{{item.overview}}</p>
             </div>
+            <!-- castlist: {{item.castName}} -->
             <!-- <div class="rating"><span>Voto: </span>{{ item.vote_average}}</div> -->
             <!-- <div class="language"><span>Lingua: </span> {{ item.original_language}} </div> -->
             <!-- <img :src="setFlag(item.original_language)" alt="flag"> -->
@@ -50,7 +54,7 @@ export default {
             //divido il punteggio per due, arrotondando all'intero più vicino, e faccio l'approssimazione per eccesso
             return Math.ceil(Math.round(rank/2));
         }
-    }
+    },
 }
 </script>
 
@@ -69,13 +73,13 @@ export default {
     height: 509px;
     padding: 2rem 1rem;
     color: white;
-    overflow-y: hidden;
+    overflow: hidden;
     .cover-image{
         position: absolute;
         top: 0;
         left: 0;
         display: block;
-        width: 100%;
+        height: 100%;
         object-fit: cover;
     }
     .item-details{
@@ -88,32 +92,12 @@ export default {
     }
     span{
         font-weight: bold;
+        &.cast-list{
+            font-weight: 400;
+        }
         i{
             color: yellow;
         }
     }
 }
-    // .item-details{
-    //     display: none;
-    //     &:hover{
-    //         display: flex;
-    //         flex-direction: column;
-    //     }
-    // }
-    // &:hover{
-    //     .cover-image{
-    //         display: none;
-
-    //     }
-    // }
-    // span{
-    //     margin-bottom: 10px;
-    // }
-    // img{
-    //     display: block;
-    //     .cover-image{
-    //         object-fit: cover;
-    //     }
-    // }
-
 </style>

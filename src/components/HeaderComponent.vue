@@ -2,7 +2,7 @@
   <div class="header">
     <div class="logo">Boolflix</div>
     <div class="search-form">
-        <input type="text" id="SearchText" v-model="searchText">
+        <input type="text" id="SearchText" v-model="searchText" @keyup.enter="search()">
         <button @click="search()">Cerca</button>
     </div>
   </div>
