@@ -73,16 +73,17 @@ export default {
 }
 .card-content{
     position: relative;
-    height: 509px;
+    height: 600px;
     padding: 2rem 1rem;
     color: white;
-    overflow: hidden;
+    overflow: auto;
     .cover-image{
         position: absolute;
         top: 0;
         left: 0;
         display: block;
         height: 100%;
+        width: 100%;
         object-fit: cover;
     }
     .item-details{

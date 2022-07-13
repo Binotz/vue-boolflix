@@ -19,6 +19,8 @@ export default {
     justify-content: center;
     align-items: center;
     padding-top: 10rem;
+    font-weight: bold;
+    font-size: 4rem;
     color: white;
 }
 </style>

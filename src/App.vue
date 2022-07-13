@@ -38,6 +38,7 @@ export default {
   methods:{
     searchElement: async function(elem){
       this.queryResults = [];
+      this.errorMessage = '';
 
       this.baseQuery.forEach((baseURL) =>{
         axios.get(baseURL, {
@@ -80,7 +81,10 @@ export default {
         })
         //catch di eventuali errori nella richiesta axios
         .catch(err => {
-          this.errorMessage = err.message;
+          console.error(err.message);
+          if(this.queryResults.length === 0){
+            this.errorMessage = 'Nessun risultato!'
+          }
         });
       });
     },
