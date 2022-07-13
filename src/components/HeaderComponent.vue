@@ -27,6 +27,7 @@ export default {
     },
     methods:{
         search: function(){
+            //al click, passo al padre il testo cercato e resetto il filtro per genere
             this.$emit('userInput', this.searchText);
             this.$emit('filter-genre', 'All');
         },
@@ -36,21 +37,25 @@ export default {
     },
     computed:{
         listOfGenres: function(){
-            // console.log(this.listOfResults);
             let tmpGenre = [];
             let genresList = [];
             tmpGenre.push('All');
+            //Se ci sono risultati...
             if(this.listOfResults.length > 0){
                 this.listOfResults.forEach(result =>{
+                    //... e questi risultati hanno un genere...
                     if(result.genres){
+                        //...pusho ogni genere in un array di appoggio...
                         result.genres.forEach(genre =>{
                             tmpGenre.push(genre);
                         });
                     } else {
+                        //...se non ci sono generi, metto un valore di default
                         tmpGenre.push('N/A');
                     }
                 });
             }
+            // rimuovo i duplicati e ritorno l'array
             genresList = [...new Set(tmpGenre)];
             return genresList;
         }
@@ -68,5 +73,19 @@ export default {
         padding: 2rem;
         color: red;
         background-color: black;
+        .logo{
+            font-size: 2rem;
+        }
+        select{
+            margin-right: 1rem;
+            padding: 4px 10px;
+        }
+        input{
+            padding: 4px 10px;
+        }
+        button{
+            padding: 4px 20px;
+            border-radius: 5px;
+        }
     }
 </style>

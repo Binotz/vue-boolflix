@@ -10,6 +10,10 @@
                     <i class="fa-solid fa-star"></i>
                 </span>
             </div>
+            <div class="lang"> 
+                <span>Lingua: </span>
+                <img :src="setFlag(item.original_language)" alt="flag">
+            </div>
             <div class="cast"><span>Cast: <br/></span>
                 <span class="cast-list" v-for="cast,index in item.castName" :key="index">{{ cast }}<br/></span>  
             </div>
@@ -22,7 +26,6 @@
             <!-- castlist: {{item.castName}} -->
             <!-- <div class="rating"><span>Voto: </span>{{ item.vote_average}}</div> -->
             <!-- <div class="language"><span>Lingua: </span> {{ item.original_language}} </div> -->
-            <!-- <img :src="setFlag(item.original_language)" alt="flag"> -->
         </div>
         <!-- Cover Image -->
         <img :src="coverBaseURL + item.poster_path" alt="cover" class="cover-image">
@@ -62,6 +65,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+}
 .card-layout{
     width: calc((100% / 5) - 1rem);
     background-color: black;
@@ -76,7 +83,7 @@ export default {
     height: 600px;
     padding: 2rem 1rem;
     color: white;
-    overflow: auto;
+    overflow-y: auto;
     .cover-image{
         position: absolute;
         top: 0;
@@ -89,6 +96,16 @@ export default {
     .item-details{
         display: flex;
         flex-direction: column;
+    }
+    .lang{
+        span{
+            margin-right: 10px;
+        }
+        img{
+            display: inline-block;
+            width: 15%;
+            margin-bottom: -10px;
+        }
     }
     div{
         font-size: 1.1rem;

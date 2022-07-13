@@ -37,9 +37,11 @@ export default {
   },
   methods:{
     searchElement: async function(elem){
+      //reset dei risultati precedenti
       this.queryResults = [];
       this.errorMessage = '';
 
+      //faccio una query API per i film e serie TV
       this.baseQuery.forEach((baseURL) =>{
         axios.get(baseURL, {
           params:{
@@ -100,6 +102,7 @@ export default {
           }
         })
         .then(resp =>{
+          //Pusho tutti i generi in un array
           resp.data.genres.forEach(genre =>{
             this.genresList.push(genre);
           });
@@ -107,8 +110,10 @@ export default {
       });
     },
     mapGenre: function(element){
+      //salvo gli id dei generi dell'elemento passato
       let genresIDS = element.genre_ids;
       let mappedGenres = [];
+      //controllo se sono presenti i generi 
       if (genresIDS.length > 0){
           //controllo gli id dell'elemento corrent
           genresIDS.forEach(genresID =>{
@@ -130,9 +135,11 @@ export default {
   },
   computed:{
     filterResults: function(){
+      //se è presente il valore di default, non filtro niente
       if(this.filterGenreString === 'All'){
         return this.queryResults;
       }
+      //altrimenti filtro i risultati i quali contengono nell'array dei generi, il genere selezionato
       return this.queryResults.filter(element =>{
         if(element.genres){
           return element.genres.includes(this.filterGenreString);
@@ -148,6 +155,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
 *{
   padding: 0;
   margin: 0;
@@ -155,5 +164,6 @@ export default {
 }
 body{
   background-color: #222;
+  font-family: 'Roboto', sans-serif;
 }
 </style>
