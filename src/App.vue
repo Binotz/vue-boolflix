@@ -2,11 +2,11 @@
   <div id="app">
     <!-- Header -->
     <header>
-      <HeaderComponentVue @userInput="searchElement"/>
+      <HeaderComponentVue @userInput="searchElement" @filter-genre="filterGenre" :listOfResults="filterResults"/>
     </header>
     <!-- Main -->
     <main>
-      <MainComponent :listOfResults="queryResults" :errorMessage="errorMessage"/>
+      <MainComponent :listOfResults="filterResults" :errorMessage="errorMessage"/>
     </main>
   </div>
 </template>
@@ -30,6 +30,7 @@ export default {
       baseQuery:['https://api.themoviedb.org/3/search/movie', 'https://api.themoviedb.org/3/search/tv'],
       userSearch:'',
       errorMessage: '',
+      filterGenreString:'All',
       genresList: [],
       queryResults:[]
     }
@@ -71,9 +72,9 @@ export default {
               console.error(err.message);
               result.castName = [];
             });
+            //creo una nuova key contenente le categorie 
             result.genres = this.mapGenre(result);
             //pusho l'elemento finale nell'array che passo ai vari components
-            console.log(result)
             this.queryResults.push(result);
           });
         })
@@ -105,19 +106,36 @@ export default {
       let genresIDS = element.genre_ids;
       let mappedGenres = [];
       if (genresIDS.length > 0){
-          console.log(element.name, element.genre_ids);
+          //controllo gli id dell'elemento corrent
           genresIDS.forEach(genresID =>{
+            //per ogni id controllo l'array di object con id:genere
             this.genresList.forEach(genre =>{
+              //se l'id del genere dell'object e quello dell'array concidono, pusho il genere in un array
               if (genresID === genre.id){
-                //element.genres.push(genre.name);
                 mappedGenres.push(genre.name);
               }
             });
           });
-        //rimozione dupicati
+        //rimozione dupicati e ritorno l'array con i generi dell'object
           return [...new Set(mappedGenres)];
       }
-    }
+    },
+    filterGenre: function(filter){
+      this.filterGenreString = filter;
+    },
+  },
+  computed:{
+    filterResults: function(){
+      if(this.filterGenreString === 'All'){
+        return this.queryResults;
+      }
+      return this.queryResults.filter(element =>{
+        if(element.genres){
+          return element.genres.includes(this.filterGenreString);
+        }
+      
+      });
+    },
   },
   mounted(){
     this.getGenres();
