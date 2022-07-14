@@ -2,7 +2,7 @@
   <div id="app">
     <!-- Header -->
     <header>
-      <HeaderComponentVue @userInput="searchElement" @filter-genre="filterGenre" :listOfResults="filterResults"/>
+      <HeaderComponentVue @userInput="searchElement" @filter-genre="filterGenre" :listOfResults="queryResults"/>
     </header>
     <!-- Main -->
     <main>
@@ -36,11 +36,11 @@ export default {
     }
   },
   methods:{
-    searchElement: async function(elem){
+    searchElement: function(elem){
       //reset dei risultati precedenti
       this.queryResults = [];
       this.errorMessage = '';
-
+      
       //faccio una query API per i film e serie TV
       this.baseQuery.forEach((baseURL) =>{
         axios.get(baseURL, {
@@ -126,7 +126,7 @@ export default {
             });
           });
         //rimozione dupicati e ritorno l'array con i generi dell'object
-          return [...new Set(mappedGenres)];
+        return [...new Set(mappedGenres)];
       }
     },
     filterGenre: function(filter){

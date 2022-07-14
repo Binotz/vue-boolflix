@@ -59,7 +59,7 @@ export default {
             genresList = [...new Set(tmpGenre)];
             return genresList;
         }
-    }
+    },
 }
 </script>
 
